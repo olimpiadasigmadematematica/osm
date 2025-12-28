@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Olímpiada Sigma de Matemática</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary: #1a237e;
+            --primary-light: #534bae;
+            --primary-dark: #000051;
+            --secondary: #ff9800;
+            --secondary-light: #ffc947;
+            --secondary-dark: #c66900;
+            --light: #f5f7ff;
+            --dark: #121212;
+            --gray: #e0e0e0;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 20px 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo-icon {
+            font-size: 2.5rem;
+            color: var(--secondary);
+        }
+        
+        .logo-text h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+        
+        .logo-text p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 25px;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: color 0.3s;
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+        
+        nav ul li a:hover {
+            color: var(--secondary-light);
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.8rem;
+            cursor: pointer;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(26, 35, 126, 0.85), rgba(26, 35, 126, 0.9)), url('https://images.unsplash.com/photo-1635070041078-e363dbe005cb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+        }
+        
+        .hero h2 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: 0 auto 30px;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background-color: var(--secondary);
+            color: var(--dark);
+            padding: 15px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .cta-button:hover {
+            background-color: var(--secondary-light);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+        }
+        
+        /* Sections */
+        section {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--primary);
+            position: relative;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+        
+        .section-title h2:after {
+            content: '';
+            position: absolute;
+            width: 100px;
+            height: 4px;
+            background-color: var(--secondary);
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        /* About Section */
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+        
+        .about-text {
+            flex: 1;
+        }
+        
+        .about-text p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+        
+        .about-image {
+            flex: 1;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        /* Levels Section */
+        .levels {
+            background-color: #f0f2ff;
+        }
+        
+        .levels-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .level-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+            text-align: center;
+            border-top: 5px solid var(--primary);
+        }
+        
+        .level-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .level-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        .level-card h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+        
+        /* Calendar Section */
+        .calendar {
+            background-color: white;
+        }
+        
+        .calendar-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .calendar-table th, .calendar-table td {
+            padding: 15px 20px;
+            text-align: left;
+            border-bottom: 1px solid var(--gray);
+        }
+        
+        .calendar-table th {
+            background-color: var(--primary);
+            color: white;
+            font-weight: 600;
+        }
+        
+        .calendar-table tr:nth-child(even) {
+            background-color: #f9f9ff;
+        }
+        
+        .calendar-table tr:hover {
+            background-color: #f0f2ff;
+        }
+        
+        .date-badge {
+            display: inline-block;
+            background-color: var(--secondary);
+            color: var(--dark);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        /* Resources Section */
+        .resources {
+            background-color: #f0f2ff;
+        }
+        
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .resource-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+        }
+        
+        .resource-card:hover {
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .resource-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        .resource-card h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        
+        .resource-link {
+            display: inline-block;
+            margin-top: 15px;
+            color: var(--secondary-dark);
+            font-weight: 600;
+            text-decoration: none;
+        }
+        
+        .resource-link:hover {
+            text-decoration: underline;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--primary-dark);
+            color: white;
+            padding: 60px 0 30px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            color: var(--secondary);
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-column ul li a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-column ul li a:hover {
+            color: var(--secondary-light);
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+        }
+        
+        .social-icons a:hover {
+            background-color: var(--secondary);
+            color: var(--dark);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .hero h2 {
+                font-size: 2.5rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 20px;
+            }
+            
+            nav ul {
+                margin-top: 20px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 0 10px 10px;
+            }
+            
+            .hero {
+                padding: 70px 0;
+            }
+            
+            .hero h2 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            section {
+                padding: 60px 0;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .mobile-menu-btn {
+                display: block;
+                position: absolute;
+                top: 20px;
+                right: 20px;
+            }
+            
+            nav {
+                display: none;
+                width: 100%;
+                margin-top: 20px;
+            }
+            
+            nav.active {
+                display: block;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            nav ul li {
+                margin: 0;
+            }
+            
+            .hero h2 {
+                font-size: 1.8rem;
+            }
+            
+            .calendar-table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+        
+        /* Mathematical elements */
+        .math-bg {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .math-bg::before {
+            content: "∑∫√∞πΣ";
+            position: absolute;
+            font-size: 20rem;
+            font-weight: bold;
+            color: rgba(26, 35, 126, 0.03);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 0;
+            white-space: nowrap;
+        }
+        
+        .math-bg > * {
+            position: relative;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-sigma"></i>
+                    </div>
+                    <div class="logo-text">
+                        <h1>Olímpiada Sigma de Matemática</h1>
+                        <p>Desafie seus limites, descubra novos horizontes</p>
+                    </div>
+                </div>
+                
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                
+                <nav id="mainNav">
+                    <ul>
+                        <li><a href="#home">Início</a></li>
+                        <li><a href="#about">Sobre</a></li>
+                        <li><a href="#levels">Níveis</a></li>
+                        <li><a href="#calendar">Calendário</a></li>
+                        <li><a href="#resources">Recursos</a></li>
+                        <li><a href="#contact">Contato</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <h2>Bem-vindo à Olímpiada Sigma</h2>
+            <p>A maior competição de matemática do país, desafiando estudantes do ensino fundamental e médio a explorarem o universo da matemática de forma criativa e inovadora.</p>
+            <a href="#calendar" class="cta-button">Inscreva-se Agora</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about math-bg" id="about">
+        <div class="container">
+            <div class="section-title">
+                <h2>Sobre a Competição</h2>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>A Olímpiada Sigma de Matemática é uma competição nacional que tem como objetivo identificar jovens talentos, promover a excelência em matemática e incentivar o estudo aprofundado dessa ciência fascinante.</p>
+                    <p>Fundada em 2010, a Sigma já revelou centenas de talentos matemáticos, muitos dos quais hoje são pesquisadores, engenheiros e cientistas de destaque no cenário nacional e internacional.</p>
+                    <p>A competição é dividida em três níveis, atendendo estudantes do 6º ano do ensino fundamental ao 3º ano do ensino médio. As provas são cuidadosamente elaboradas por uma equipe de professores e pesquisadores especializados.</p>
+                </div>
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1596495577886-d920f1fb7238?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Estudantes resolvendo problemas matemáticos">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Levels Section -->
+    <section class="levels" id="levels">
+        <div class="container">
+            <div class="section-title">
+                <h2>Níveis da Competição</h2>
+            </div>
+            <div class="levels-grid">
+                <div class="level-card">
+                    <div class="level-icon">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <h3>Nível Alfa</h3>
+                    <p>Para estudantes do 6º e 7º anos do ensino fundamental. Foco em lógica matemática, aritmética e geometria básica.</p>
+                </div>
+                <div class="level-card">
+                    <div class="level-icon">
+                        <i class="fas fa-square-root-alt"></i>
+                    </div>
+                    <h3>Nível Beta</h3>
+                    <p>Para estudantes do 8º e 9º anos do ensino fundamental. Aborda álgebra, geometria plana e noções de combinatória.</p>
+                </div>
+                <div class="level-card">
+                    <div class="level-icon">
+                        <i class="fas fa-infinity"></i>
+                    </div>
+                    <h3>Nível Gama</h3>
+                    <p>Para estudantes do ensino médio. Contempla temas avançados como trigonometria, análise combinatória e pré-cálculo.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Calendar Section -->
+    <section class="calendar math-bg" id="calendar">
+        <div class="container">
+            <div class="section-title">
+                <h2>Calendário 2024</h2>
+            </div>
+            <table class="calendar-table">
+                <thead>
+                    <tr>
+                        <th>Evento</th>
+                        <th>Data</th>
+                        <th>Descrição</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Inscrições</td>
+                        <td><span class="date-badge">01/03 a 30/04</span></td>
+                        <td>Período para inscrições de escolas e estudantes</td>
+                    </tr>
+                    <tr>
+                        <td>Primeira Fase</td>
+                        <td><span class="date-badge">25/05</span></td>
+                        <td>Prova objetiva realizada nas escolas</td>
+                    </tr>
+                    <tr>
+                        <td>Resultado 1ª Fase</td>
+                        <td><span class="date-badge">20/06</span></td>
+                        <td>Divulgação dos classificados para a segunda fase</td>
+                    </tr>
+                    <tr>
+                        <td>Segunda Fase</td>
+                        <td><span class="date-badge">10/08</span></td>
+                        <td>Prova discursiva em polos regionais</td>
+                    </tr>
+                    <tr>
+                        <td>Resultado Final</td>
+                        <td><span class="date-badge">15/09</span></td>
+                        <td>Divulgação dos medalhistas</td>
+                    </tr>
+                    <tr>
+                        <td>Cerimônia de Premiação</td>
+                        <td><span class="date-badge">20/10</span></td>
+                        <td>Entrega de medalhas e certificados</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Resources Section -->
+    <section class="resources" id="resources">
+        <div class="container">
+            <div class="section-title">
+                <h2>Recursos de Estudo</h2>
+            </div>
+            <div class="resources-grid">
+                <div class="resource-card">
+                    <div class="resource-icon">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                    <h3>Provas Anteriores</h3>
+                    <p>Acesse as provas dos anos anteriores com gabaritos para praticar.</p>
+                    <a href="#" class="resource-link">Acessar provas →</a>
+                </div>
+                <div class="resource-card">
+                    <div class="resource-icon">
+                        <i class="fas fa-video"></i>
+                    </div>
+                    <h3>Videoaulas</h3>
+                    <p>Playlist com resolução comentada das questões mais desafiadoras.</p>
+                    <a href="#" class="resource-link">Assistir aulas →</a>
+                </div>
+                <div class="resource-card">
+                    <div class="resource-icon">
+                        <i class="fas fa-download"></i>
+                    </div>
+                    <h3>Material Didático</h3>
+                    <p>Baixe apostilas com conteúdos específicos para cada nível.</p>
+                    <a href="#" class="resource-link">Baixar material →</a>
+                </div>
+                <div class="resource-card">
+                    <div class="resource-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Fórum de Discussão</h3>
+                    <p>Tire dúvidas e discuta problemas com outros participantes.</p>
+                    <a href="#" class="resource-link">Participar do fórum →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Olímpiada Sigma</h3>
+                    <p>Promovendo a excelência em matemática desde 2010. Uma iniciativa do Instituto Brasileiro de Desenvolvimento Matemático (IBDM).</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Links Rápidos</h3>
+                    <ul>
+                        <li><a href="#home">Início</a></li>
+                        <li><a href="#about">Sobre</a></li>
+                        <li><a href="#levels">Níveis</a></li>
+                        <li><a href="#calendar">Calendário</a></li>
+                        <li><a href="#resources">Recursos</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contato</h3>
+                    <ul>
+                        <li><i class="fas fa-envelope"></i> contato@sigmamatematica.org.br</li>
+                        <li><i class="fas fa-phone"></i> (11) 3456-7890</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Av. Paulista, 1000 - São Paulo/SP</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2024 Olímpiada Sigma de Matemática. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mainNav = document.getElementById('mainNav');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mainNav.classList.toggle('active');
+            mobileMenuBtn.innerHTML = mainNav.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    // Close mobile menu if open
+                    if(mainNav.classList.contains('active')) {
+                        mainNav.classList.remove('active');
+                        mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                    }
+                    
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Form submission simulation (for demonstration)
+        document.querySelector('.cta-button').addEventListener('click', function(e) {
+            const isCalendarSection = this.getAttribute('href') === '#calendar';
+            
+            if(isCalendarSection) {
+                // In a real site, this would redirect to a registration form
+                // Here we'll just show an alert
+                setTimeout(() => {
+                    alert('Em um site real, esta ação levaria ao formulário de inscrição. Para demonstração, mostramos o calendário da competição.');
+                }, 1000);
+            }
+        });
+    </script>
+</body>
+</html>
