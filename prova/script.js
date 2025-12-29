@@ -1,8 +1,6 @@
 "use strict";
 
-// ====================
 // Utilitários
-// ====================
 const STORAGE_PREFIX = "sigma_exam_v1";
 function byId(id){ return document.getElementById(id); }
 function qq(selector, el=document){ return Array.from(el.querySelectorAll(selector)); }
@@ -54,7 +52,7 @@ async function loadExamJSON(){
   // aqui você pode trocar para fetch("/exam.json") se estiver no servidor
   const sampleExam = {
     meta:{title:"Prova Sigma — Exemplo"},
-    timeLimit:600,
+    timeLimit:6,
     questions:[
       {id:1,text:"Em uma PA: a1=5, r=3. Soma dos 10 primeiros termos?",options:["155","185","205","225","245"],correct:"B",explanation:"S_n = n*(2a1+(n-1)r)/2 = 10*(10+27)/2 = 185"},
       {id:2,text:"Cubo aresta 6 cm: distância entre vértices opostos?",options:["6√2","6√3","12","12√2","12√3"],correct:"B",explanation:"Diagonal = a√3 = 6√3"},

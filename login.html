@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Portal Sigma</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container" style="max-width:400px; margin-top:100px;">
+        <header style="text-align:center; margin-bottom:20px;">
+            <h1 style="color:var(--primary);">Portal <i class="sigma">Σ</i></h1>
+            <div class="muted">Faça login para continuar</div>
+        </header>
+
+        <div class="login-card" style="padding:30px; background:var(--surface); border-radius:12px; box-shadow:var(--shadow-2);">
+            <label for="username">Usuário</label>
+            <input type="text" id="username" placeholder="Digite seu usuário" style="width:100%; padding:10px; margin:8px 0; border-radius:8px; border:1px solid #ccc;">
+
+            <label for="password">Senha</label>
+            <input type="password" id="password" placeholder="Digite sua senha" style="width:100%; padding:10px; margin:8px 0; border-radius:8px; border:1px solid #ccc;">
+
+            <button id="login-btn" class="primary" style="width:100%; margin-top:12px;">Entrar</button>
+
+            <div id="login-error" style="color:var(--danger); margin-top:12px; display:none;"></div>
+        </div>
+    </div>
+
+    <script>
+      
+      document.addEventListener('DOMContentLoaded', () => {
+    const loginBtn = document.getElementById('login-btn');
+    const usernameInput = document.getElementById('username');
+    const passwordInput = document.getElementById('password');
+    const loginError = document.getElementById('login-error');
+
+    // Usuários e redirecionamentos
+    const users = {
+        "aluno": "prova/questions.html",
+        "admin": "admin.html"
+    };
+
+    // Senhas correspondentes
+    const passwords = {
+        "aluno": "1234",
+        "admin": "admin2025"
+    };
+
+    loginBtn.addEventListener('click', () => {
+        const user = usernameInput.value.trim();
+        const pass = passwordInput.value;
+
+        if (users[user] && passwords[user] === pass) {
+            // Login correto: redirecionar
+            window.location.href = users[user];
+        } else {
+            loginError.textContent = "Usuário ou senha incorretos!";
+            loginError.style.display = "block";
+        }
+    });
+
+    // Enter para submeter
+    [usernameInput, passwordInput].forEach(input => {
+        input.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') loginBtn.click();
+        });
+    });
+});
+    </script>
+</body>
+</html>
