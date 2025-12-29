@@ -1,0 +1,322 @@
+/* style.css — Modernização visual para o simulador
+   Cole este arquivo ao lado do index.html e script.js
+*/
+
+/* =========================
+   Variáveis (tema)
+   ========================= */
+:root{
+  --bg: #f5f7ff;
+  --surface: #ffffff;
+  --muted: #7b8293;
+  --text: #0f1724;
+  --primary: #1a237e;   /* azul escuro */
+  --accent: #ff9800;    /* laranja */
+  --success: #2ea44f;
+  --danger: #ff5252;
+  --glass: rgba(255,255,255,0.6);
+
+  --radius-lg: 14px;
+  --radius-md: 10px;
+  --radius-sm: 8px;
+
+  --shadow-1: 0 6px 18px rgba(15,23,36,0.06);
+  --shadow-2: 0 10px 30px rgba(15,23,36,0.08);
+  --focus: 0 0 0 4px rgba(26,35,126,0.12);
+}
+
+/* =========================
+   Base
+   ========================= */
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family: Inter, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: linear-gradient(180deg, var(--bg), #eef2ff 120px);
+  color:var(--text);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  line-height:1.45;
+  padding:28px;
+}
+
+/* Container principal */
+.container{
+  max-width:1100px;
+  margin:0 auto;
+  background:var(--surface);
+  border-radius:var(--radius-lg);
+  padding:22px;
+  box-shadow:var(--shadow-2);
+  border:1px solid rgba(26,35,126,0.03);
+}
+
+/* Header */
+header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+  margin-bottom:14px;
+}
+header h1{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  font-size:1.25rem;
+  color:var(--primary);
+  margin:0;
+}
+header .muted{font-size:0.92rem;color:var(--muted)}
+
+/* Controls row */
+.controls-row{display:flex;gap:10px;align-items:center}
+
+/* Small buttons / primary */
+button.small,
+.small{
+  appearance:none;
+  border:1px solid rgba(15,23,36,0.06);
+  background:linear-gradient(180deg,#fff,#fbfbff);
+  padding:8px 10px;
+  border-radius:10px;
+  font-weight:600;
+  color:var(--text);
+  cursor:pointer;
+  transition:transform .12s ease, box-shadow .12s ease;
+}
+button.small:hover,
+.small:hover{ transform:translateY(-3px); box-shadow:var(--shadow-1) }
+
+button.primary,
+.primary{
+  background:linear-gradient(90deg,var(--accent),#ffb347);
+  color:#1b1b1b;
+  border:none;
+  padding:9px 12px;
+  border-radius:12px;
+  font-weight:700;
+  cursor:pointer;
+  box-shadow: 0 6px 18px rgba(255,152,0,0.12);
+}
+button.primary:hover{ transform:translateY(-3px) }
+
+/* banner de restauração */
+.banner{
+  border-radius:12px;
+  background:linear-gradient(180deg,#fff9e6,#fff6d6);
+  border:1px solid rgba(255,200,60,0.15);
+  padding:12px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  box-shadow: 0 6px 14px rgba(255,184,26,0.04);
+  margin:12px 0;
+}
+
+/* Layout principal */
+.layout{
+  display:grid;
+  grid-template-columns: 240px 1fr;
+  gap:20px;
+  align-items:start;
+}
+
+/* Tabs (sidebar) */
+nav.tabs{
+  background:linear-gradient(180deg,#fbfbff,#f7f8ff);
+  padding:14px;
+  border-radius:12px;
+  border:1px solid rgba(26,35,126,0.03);
+  box-shadow:var(--shadow-1);
+  height:100%;
+  position:sticky;
+  top:28px;
+}
+
+.tabs > div{font-weight:800;color:var(--primary);margin-bottom:10px}
+#tabs-list{display:flex;flex-wrap:wrap;gap:8px}
+
+/* botões de aba */
+#tabs-list .tab-btn{
+  appearance:none;
+  background:transparent;
+  border:1px dashed rgba(26,35,126,0.06);
+  padding:8px 10px;
+  border-radius:10px;
+  min-width:44px;
+  text-align:center;
+  font-weight:800;
+  color:var(--primary);
+  cursor:pointer;
+  transition:all .12s ease;
+}
+#tabs-list .tab-btn:hover{ transform:translateY(-3px); box-shadow:var(--shadow-1) }
+
+/* estados das abas */
+#tabs-list .tab-btn.active{
+  background:linear-gradient(90deg,var(--primary),#2330a6);
+  color:white;
+  box-shadow:0 8px 24px rgba(26,35,126,0.12);
+  border:none;
+}
+#tabs-list .tab-btn.answered{
+  background:linear-gradient(180deg,#eaf1ff,#f8fbff);
+  border-color:transparent;
+  color:var(--primary);
+}
+#tabs-list .tab-btn.marked{
+  outline:3px dashed rgba(255,152,0,0.18);
+  box-shadow:none;
+}
+
+/* progresso */
+#progress{height:10px;border-radius:999px;transition:width .3s ease}
+
+/* main area */
+main.area{
+  min-height:300px;
+}
+
+/* Question wrapper e card */
+.question-wrapper{min-height:240px}
+.question-card{
+  background: linear-gradient(180deg,#fff,#fbfdff);
+  border-radius:var(--radius-md);
+  padding:18px;
+  border:1px solid rgba(15,23,36,0.04);
+  box-shadow:var(--shadow-1);
+  transition:transform .12s ease, box-shadow .12s ease;
+}
+.question-card:hover{ transform:translateY(-4px) }
+
+/* título e meta */
+.question-card h2{margin:0 0 6px 0;color:var(--primary)}
+.question-card .muted{color:var(--muted)}
+
+/* texto da questão */
+.question-text{
+  font-size:1.05rem;
+  margin:10px 0 16px 0;
+  color:var(--text);
+}
+
+/* opções */
+.options-container{display:flex;flex-direction:column;gap:12px}
+.option{
+  display:flex;
+  gap:14px;
+  align-items:flex-start;
+  padding:14px;
+  border-radius:12px;
+  background:linear-gradient(180deg,#ffffff,#fbfcff);
+  border:1px solid rgba(15,23,36,0.06);
+  cursor:pointer;
+  transition:all .12s ease;
+  outline: none;
+}
+.option:hover{ transform:translateY(-4px); box-shadow:var(--shadow-1); border-color:rgba(26,35,126,0.1) }
+
+.option:focus{ box-shadow:var(--focus); border-color:var(--primary) }
+
+.option-letter{
+  min-width:36px;
+  height:36px;
+  border-radius:10px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:900;
+  color:var(--primary);
+  background:linear-gradient(180deg,#f3f6ff,#eef2ff);
+  border:1px solid rgba(26,35,126,0.06);
+  flex-shrink:0;
+}
+.option-text{flex:1;font-size:1rem;color:var(--text)}
+
+/* seleção */
+.option.selected{
+  background:linear-gradient(180deg,#e8f3ff,#eef8ff);
+  border-color:var(--primary);
+  box-shadow:0 10px 30px rgba(26,35,126,0.06);
+}
+.option.selected .option-letter{
+  background:linear-gradient(180deg,#cfe3ff,#b7d6ff);
+  color:var(--primary);
+}
+
+/* controle inferior */
+#question-panel > div[style]{
+  margin-top:14px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  align-items:center;
+}
+
+/* timer */
+#timer{
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", monospace;
+  font-weight:800;
+  color:var(--primary);
+  padding:6px 10px;
+  border-radius:8px;
+  background:linear-gradient(180deg,#eef2ff,#f7f9ff);
+  border:1px solid rgba(26,35,126,0.06);
+}
+
+/* Timer states usando data attr no body (alterar via JS) */
+body[data-time-state="normal"] #timer{ color:var(--primary); background:linear-gradient(180deg,#eef2ff,#f7f9ff) }
+body[data-time-state="warn"] #timer{ color:#3a2a00; background:linear-gradient(180deg,#fff3e0,#fff0d6); box-shadow:0 6px 18px rgba(255,152,0,0.08) }
+body[data-time-state="danger"] #timer{ color:#fff; background:linear-gradient(180deg,#ff5252,#ff7b7b); box-shadow:0 8px 28px rgba(255,82,82,0.12) }
+
+/* results */
+#results{
+  margin-top:18px;
+  padding:18px;
+  border-radius:12px;
+  background:linear-gradient(180deg,#f3f7ff,#eef3ff);
+  border-left:6px solid var(--primary);
+  box-shadow:var(--shadow-1);
+}
+#results h3{margin-top:0;color:var(--primary)}
+
+/* per-question feedback (após correção) */
+#results .correct{ border-left:4px solid var(--success); background:linear-gradient(180deg,#f3fff5,#eaf9ee) }
+#results .incorrect{ border-left:4px solid var(--danger); background:linear-gradient(180deg,#fff5f5,#ffecec) }
+#results .explain{ margin-top:8px;color:#24323a }
+
+/* help modal */
+#help-modal{
+  margin-top:14px;
+  border-radius:10px;
+  padding:12px;
+  background:linear-gradient(180deg,#fff,#fbfbff);
+  border:1px solid rgba(15,23,36,0.04);
+  box-shadow:var(--shadow-1);
+}
+
+/* focus styles acessíveis */
+button:focus, .option:focus, .tab-btn:focus{
+  outline:none;
+  box-shadow:var(--focus);
+  border-radius:10px;
+}
+
+/* responsividade */
+@media (max-width:980px){
+  .layout{grid-template-columns:1fr; padding-bottom:18px}
+  nav.tabs{position:relative;top:0;width:100%;display:flex;overflow-x:auto;padding:10px;gap:8px}
+  #tabs-list{flex-wrap:nowrap}
+  .question-card{padding:14px}
+  header{flex-direction:column;align-items:flex-start;gap:6px}
+}
+
+/* pequenas melhorias para impressão */
+@media print{
+  body{background:#fff}
+  .container{box-shadow:none;border:none}
+  nav.tabs, .controls-row, #help-modal{display:none}
+}
