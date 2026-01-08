@@ -37,7 +37,6 @@
             padding: 0 20px;
         }
         
-        /* Header */
         header {
             background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
             color: white;
@@ -109,7 +108,6 @@
             cursor: pointer;
         }
         
-        /* Hero Section */
         .hero {
             background: linear-gradient(rgba(26, 35, 126, 0.85), rgba(26, 35, 126, 0.9)), url('https://images.unsplash.com/photo-1635070041078-e363dbe005cb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
             background-size: cover;
@@ -150,7 +148,6 @@
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
         }
         
-        /* Sections */
         section {
             padding: 80px 0;
         }
@@ -179,7 +176,6 @@
             transform: translateX(-50%);
         }
         
-        /* About Section */
         .about-content {
             display: flex;
             align-items: center;
@@ -208,7 +204,6 @@
             display: block;
         }
         
-        /* Levels Section */
         .levels {
             background-color: #f0f2ff;
         }
@@ -245,7 +240,6 @@
             font-size: 1.5rem;
         }
         
-        /* Calendar Section */
         .calendar {
             background-color: white;
         }
@@ -289,7 +283,6 @@
             font-size: 0.9rem;
         }
         
-        /* Resources Section */
         .resources {
             background-color: #f0f2ff;
         }
@@ -336,7 +329,6 @@
             text-decoration: underline;
         }
         
-        /* Footer */
         footer {
             background-color: var(--primary-dark);
             color: white;
@@ -407,7 +399,6 @@
             font-size: 0.9rem;
         }
         
-        /* Responsive Design */
         @media (max-width: 992px) {
             .about-content {
                 flex-direction: column;
@@ -493,7 +484,6 @@
             }
         }
         
-        /* Mathematical elements */
         .math-bg {
             position: relative;
             overflow: hidden;
@@ -589,21 +579,21 @@
                         <i class="fas fa-calculator"></i>
                     </div>
                     <h3>Nível 1</h3>
-                    <p>Para estudantes do 6º e 7º anos do ensino fundamental. Foco em lógica matemática, aritmética e geometria básica.</p>
+                    <p>Este nível foca nos conceitos básicos da matemática, essenciais para qualquer estudo futuro. Aqui você aprende a trabalhar com números, frações, decimais e conjuntos, além de relações e funções lineares simples. Tudo para criar uma base sólida que permite entender problemas do dia a dia e resolver equações de 1º grau. Para estudantes do 6º e 7º anos do ensino fundamental. <br><a href="info/n1_temas.html">Ver conteúdos.</a></p>
                 </div>
                 <div class="level-card">
                     <div class="level-icon">
                         <i class="fas fa-square-root-alt"></i>
                     </div>
                     <h3>Nível 2</h3>
-                    <p>Para estudantes do 8º e 9º anos do ensino fundamental. Aborda álgebra, geometria plana e noções de combinatória.</p>
+                    <p>O Nível 2 entra no mundo das funções mais complexas e das equações especiais. Você vai explorar funções quadráticas, modulares e exponenciais, além de aprender a lidar com inequações de 2º grau e modulares. Este nível te prepara para enxergar padrões e resolver problemas mais desafiadores. Para estudantes do 8º e 9º anos do ensino fundamental. <br><a href="info/n2_temas.html">Ver conteúdos.</a></p>
                 </div>
                 <div class="level-card">
                     <div class="level-icon">
                         <i class="fas fa-infinity"></i>
                     </div>
                     <h3>Nível 3</h3>
-                    <p>Para estudantes do ensino médio. Contempla temas avançados como trigonometria, análise combinatória e pré-cálculo.</p>
+                    <p>Aqui a matemática começa a ficar mais abstrata e poderosa. Estuda-se funções exponenciais e logarítmicas, trigonometria e suas funções, além de progressões aritméticas e geométricas. É o nível que conecta cálculo, padrões e crescimento, abrindo caminho para matemática aplicada e ciência. Para estudantes do ensino médio. <br><a href="info/n3_temas.html">Ver conteúdos.</a></p>
                 </div>
             </div>
         </div>
@@ -689,7 +679,7 @@
                 </div>
             </div>
             <div class="copyright">
-                <p>&copy; 2025 Olímpiada Sigma de Matemática. Todos os direitos reservados.</p>
+                <p>&copy; 2026 Olímpiada Sigma de Matemática. Todos os direitos reservados.</p>
             </div>
         </div>
     </footer>
@@ -735,8 +725,6 @@
             const isCalendarSection = this.getAttribute('href') === '#calendar';
             
             if(isCalendarSection) {
-                // In a real site, this would redirect to a registration form
-                // Here we'll just show an alert
                 setTimeout(() => {
                     alert('to fazendo isos aqui aimda, calma ae');
                 }, 1000);
