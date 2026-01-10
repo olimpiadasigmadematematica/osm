@@ -618,6 +618,44 @@
                 height: 35px;
             }
         }
+                .math-container {
+            padding: 15px;
+            margin: 15px 0;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #2d3b8b;
+            overflow-x: auto;
+        }
+        
+        .math-display {
+            text-align: center;
+            font-size: 1.1em;
+            padding: 10px;
+            margin: 15px 0;
+        }
+        
+        .math-inline {
+            display: inline-block;
+            vertical-align: middle;
+        }
+        
+        .option-math {
+            margin-top: 5px;
+            padding: 8px;
+            background-color: white;
+            border-radius: 6px;
+            border: 1px solid #e0e0e0;
+        }
+        
+        /* Ajustes para renderização MathJax */
+        .mjx-chtml {
+            outline: none;
+        }
+        
+        /* Estilo para equações grandes */
+        .large-equation {
+            font-size: 1.2em;
+        }
     </style>
 </head>
 <body>
@@ -767,6 +805,31 @@
             </div>
         </div>
     </footer>
+    
+    <!-- MATH JAX -->
+    <script>
+      window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true,
+                processEnvironments: true,
+                packages: ['base', 'ams', 'noerrors', 'noundefined']
+            },
+            options: {
+                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+                ignoreHtmlClass: 'tex-ignore'
+            },
+            startup: {
+                pageReady: () => {
+                    return MathJax.startup.defaultPageReady().then(() => {
+                        console.log('MathJax carregado com sucesso');
+                    });
+                }
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
 
     <script>
         // Exam data structure
@@ -818,159 +881,25 @@
 
         // Load exam data from JSON
         async function loadExamData() {
-            try {
-                // In a real scenario, this would fetch from a JSON file
-                // For demo purposes, we'll create the data inline
-                const mockQuestions = [
-                    {
-                        id: 1,
-                        text: "Em um triângulo retângulo, a soma dos quadrados dos catetos é igual a 169. Se um cateto mede 5 cm, qual é o comprimento da hipotenusa?",
-                        image: null,
-                        options: [
-                            "12 cm",
-                            "13 cm", 
-                            "14 cm",
-                            "15 cm",
-                            "17 cm"
-                        ],
-                        correctAnswer: "B"
-                    },
-                    {
-                        id: 2,
-                        text: "Qual é o valor de x na equação 2^(x+1) = 32?",
-                        image: null,
-                        options: [
-                            "2",
-                            "3",
-                            "4",
-                            "5",
-                            "6"
-                        ],
-                        correctAnswer: "C"
-                    },
-                    {
-                        id: 3,
-                        text: "Em uma progressão geométrica, o primeiro termo é 3 e a razão é 2. Qual é a soma dos 5 primeiros termos?",
-                        image: null,
-                        options: [
-                            "45",
-                            "63",
-                            "93",
-                            "99",
-                            "127"
-                        ],
-                        correctAnswer: "C"
-                    },
-                    {
-                        id: 4,
-                        text: "Se log₁₀2 ≈ 0.3010 e log₁₀3 ≈ 0.4771, qual é o valor aproximado de log₁₀6?",
-                        image: null,
-                        options: [
-                            "0.1761",
-                            "0.3010",
-                            "0.4771",
-                            "0.6020",
-                            "0.7781"
-                        ],
-                        correctAnswer: "E"
-                    },
-                    {
-                        id: 5,
-                        text: "Quantos anagramas da palavra 'MATEMATICA' começam com a letra M?",
-                        image: null,
-                        options: [
-                            "15120",
-                            "30240",
-                            "45360",
-                            "60480",
-                            "75600"
-                        ],
-                        correctAnswer: "C"
-                    },
-                    {
-                        id: 6,
-                        text: "Se f(x) = 3x² - 2x + 1, qual é o valor de f(2)?",
-                        image: null,
-                        options: [
-                            "7",
-                            "9",
-                            "11",
-                            "13",
-                            "15"
-                        ],
-                        correctAnswer: "B"
-                    },
-                    {
-                        id: 7,
-                        text: "Qual é a área de um círculo inscrito em um quadrado de lado 10 cm?",
-                        image: null,
-                        options: [
-                            "25π cm²",
-                            "50π cm²",
-                            "75π cm²",
-                            "100π cm²",
-                            "125π cm²"
-                        ],
-                        correctAnswer: "A"
-                    },
-                    {
-                        id: 8,
-                        text: "Resolva a equação: |2x - 3| = 7",
-                        image: null,
-                        options: [
-                            "x = 2 ou x = -5",
-                            "x = 5 ou x = -2",
-                            "x = 2 ou x = 5",
-                            "x = -2 ou x = -5",
-                            "x = 3 ou x = -3"
-                        ],
-                        correctAnswer: "B"
-                    },
-                    {
-                        id: 9,
-                        text: "Qual é o resto da divisão de 7^100 por 5?",
-                        image: null,
-                        options: [
-                            "0",
-                            "1",
-                            "2",
-                            "3",
-                            "4"
-                        ],
-                        correctAnswer: "B"
-                    },
-                    {
-                        id: 10,
-                        text: "Em um triângulo equilátero de lado L, qual é a distância do centro ao vértice?",
-                        image: null,
-                        options: [
-                            "L/√3",
-                            "L√3/3",
-                            "L√3/2",
-                            "L/2",
-                            "L√2/2"
-                        ],
-                        correctAnswer: "B"
-                    }
-                ];
+    try {
+        examData.questions = mockQuestions;
+        examData.startTime = new Date();
+        
+        // Initialize the exam
+        initExam();
+        
+    } catch (error) {
+        console.error('Erro ao carregar dados da prova:', error);
+        elements.questionContent.innerHTML = `
+            <div style="text-align: center; padding: 2rem; color: var(--danger);">
+                <i class="fas fa-exclamation-triangle" style="font-size: 3rem; margin-bottom: 1rem;"></i>
+                <h3>Erro ao carregar a prova</h3>
+                <p>Recarregue a página ou tente novamente mais tarde.</p>
+            </div>
+        `;
+    }
+}
 
-                examData.questions = mockQuestions;
-                examData.startTime = new Date();
-                
-                // Initialize the exam
-                initExam();
-                
-            } catch (error) {
-                console.error('Erro ao carregar dados da prova:', error);
-                elements.questionContent.innerHTML = `
-                    <div style="text-align: center; padding: 2rem; color: var(--danger);">
-                        <i class="fas fa-exclamation-triangle" style="font-size: 3rem; margin-bottom: 1rem;"></i>
-                        <h3>Erro ao carregar a prova</h3>
-                        <p>Recarregue a página ou tente novamente mais tarde.</p>
-                    </div>
-                `;
-            }
-        }
 
         // Initialize exam
         function initExam() {
@@ -1021,59 +950,96 @@
 
         // Load a specific question
         function loadQuestion(index) {
-            examData.currentQuestionIndex = index;
-            const question = examData.questions[index];
-            
-            // Update UI
-            elements.currentQuestion.textContent = index + 1;
-            elements.currentIndex.textContent = index + 1;
-            
-            // Update navigation buttons state
-            elements.prevBtn.disabled = index === 0;
-            elements.backBtn.disabled = index === 0;
-            elements.nextBtn.disabled = index === examData.questions.length - 1;
-            elements.forwardBtn.disabled = index === examData.questions.length - 1;
-            
-            // Update flag button
-            updateFlagButton();
-            
-            // Load question content
-            elements.questionContent.innerHTML = `
-                <div class="question-title">Questão ${question.id}</div>
-                <div class="question-text">${question.text}</div>
-                ${question.image ? `<img src="${question.image}" alt="Questão ${question.id}" class="question-image">` : ''}
-            `;
-            
-            // Load options
-            loadOptions(question);
-        }
+    examData.currentQuestionIndex = index;
+    const question = examData.questions[index];
+    
+    // Update UI
+    elements.currentQuestion.textContent = index + 1;
+    elements.currentIndex.textContent = index + 1;
+    
+    // Update navigation buttons state
+    elements.prevBtn.disabled = index === 0;
+    elements.backBtn.disabled = index === 0;
+    elements.nextBtn.disabled = index === examData.questions.length - 1;
+    elements.forwardBtn.disabled = index === examData.questions.length - 1;
+    
+    // Update flag button
+    updateFlagButton();
+    
+    // Load question content with LaTeX support
+    let questionHTML = `
+        <div class="question-title">Questão ${question.id}</div>
+        <div class="question-text">${question.text}</div>
+    `;
+    
+    // Add explanation if exists (for review mode)
+    if (question.explanation && examData.examFinished) {
+        questionHTML += `
+            <div class="math-container" style="background-color: #e8f5e9; margin-top: 15px;">
+                <strong><i class="fas fa-lightbulb"></i> Explicação:</strong>
+                <div class="math-display">${question.explanation}</div>
+            </div>
+        `;
+    }
+    
+    elements.questionContent.innerHTML = questionHTML;
+    
+    // Load options
+    loadOptions(question);
+    
+    // Process MathJax rendering after content is loaded
+    if (window.MathJax) {
+        setTimeout(() => {
+            MathJax.typesetPromise([elements.questionContent]).catch(err => {
+                console.log('MathJax typeset error:', err);
+            });
+        }, 100);
+    }
+}
+
 
         // Load options for a question
         function loadOptions(question) {
-            elements.optionsContainer.innerHTML = '';
-            
-            const letters = ['A', 'B', 'C', 'D', 'E'];
-            const userAnswer = examData.userAnswers[question.id];
-            
-            question.options.forEach((option, index) => {
-                const letter = letters[index];
-                const optionCard = document.createElement('div');
-                optionCard.className = 'option-card';
-                if (userAnswer === letter) {
-                    optionCard.classList.add('selected');
-                }
-                optionCard.dataset.option = letter;
-                
-                optionCard.innerHTML = `
-                    <div class="option-letter">${letter}</div>
-                    <div class="option-text">${option}</div>
-                    <div class="option-check"><i class="fas fa-check"></i></div>
-                `;
-                
-                optionCard.addEventListener('click', () => selectOption(question.id, letter));
-                elements.optionsContainer.appendChild(optionCard);
-            });
+    elements.optionsContainer.innerHTML = '';
+    
+    const letters = ['A', 'B', 'C', 'D', 'E'];
+    const userAnswer = examData.userAnswers[question.id];
+    
+    question.options.forEach((option, index) => {
+        const letter = letters[index];
+        const optionCard = document.createElement('div');
+        optionCard.className = 'option-card';
+        if (userAnswer === letter) {
+            optionCard.classList.add('selected');
         }
+        optionCard.dataset.option = letter;
+        
+        // Determine if option contains LaTeX
+        const optionContent = option.latex ? 
+            `<div class="option-math">${option.text}</div>` :
+            `<div class="option-text">${option.text}</div>`;
+        
+        optionCard.innerHTML = `
+            <div class="option-letter">${letter}</div>
+            <div class="option-content">
+                ${optionContent}
+            </div>
+            <div class="option-check"><i class="fas fa-check"></i></div>
+        `;
+        
+        optionCard.addEventListener('click', () => selectOption(question.id, letter));
+        elements.optionsContainer.appendChild(optionCard);
+    });
+    
+    // Process MathJax for options
+    if (window.MathJax) {
+        setTimeout(() => {
+            MathJax.typesetPromise([elements.optionsContainer]).catch(err => {
+                console.log('MathJax typeset error for options:', err);
+            });
+        }, 100);
+    }
+}
 
         // Select an option
         function selectOption(questionId, optionLetter) {
@@ -1142,63 +1108,136 @@
 
         // Finish exam and show results
         function finishExam() {
-            clearInterval(timerInterval);
-            examData.examFinished = true;
-            
-            // Calculate time used
-            const timeUsed = examData.timeLimit - timeLeft;
-            const minutesUsed = Math.floor(timeUsed / 60);
-            const secondsUsed = timeUsed % 60;
-            
-            // Calculate results
-            let correct = 0;
-            let incorrect = 0;
-            let blank = 0;
-            
-            examData.questions.forEach(question => {
-                const userAnswer = examData.userAnswers[question.id];
-                
-                if (!userAnswer) {
-                    blank++;
-                } else if (userAnswer === question.correctAnswer) {
-                    correct++;
-                } else {
-                    incorrect++;
-                }
-            });
-            
-            // Prepare JSON output
-            const resultsJSON = {
-                examId: examData.examId,
-                studentId: examData.studentId,
-                studentName: examData.studentName,
-                startTime: examData.startTime.toISOString(),
-                endTime: new Date().toISOString(),
-                timeUsed: timeUsed,
-                totalQuestions: examData.questions.length,
-                correctAnswers: correct,
-                incorrectAnswers: incorrect,
-                blankAnswers: blank,
-                score: correct,
-                flaggedQuestions: Array.from(examData.flaggedQuestions),
-                userAnswers: examData.userAnswers,
-                correctAnswersKey: examData.questions.reduce((acc, q) => {
-                    acc[q.id] = q.correctAnswer;
-                    return acc;
-                }, {})
-            };
-            
-            // Update modal with results
-            elements.finalScore.textContent = `${correct}/${examData.questions.length}`;
-            elements.correctCount.textContent = correct;
-            elements.incorrectCount.textContent = incorrect;
-            elements.blankCount.textContent = blank;
-            elements.timeUsed.textContent = `${minutesUsed}:${secondsUsed.toString().padStart(2, '0')}`;
-            elements.jsonOutput.textContent = JSON.stringify(resultsJSON, null, 2);
-            
-            // Show modal
-            elements.resultsModal.classList.add('active');
+    clearInterval(timerInterval);
+    examData.examFinished = true;
+    
+    // Calculate time used
+    const timeUsed = examData.timeLimit - timeLeft;
+    const minutesUsed = Math.floor(timeUsed / 60);
+    const secondsUsed = timeUsed % 60;
+    
+    // Calculate results
+    let correct = 0;
+    let incorrect = 0;
+    let blank = 0;
+    const detailedResults = [];
+    
+    examData.questions.forEach(question => {
+        const userAnswer = examData.userAnswers[question.id];
+        const isCorrect = userAnswer === question.correctAnswer;
+        
+        if (!userAnswer) {
+            blank++;
+        } else if (isCorrect) {
+            correct++;
+        } else {
+            incorrect++;
         }
+        
+        // Store detailed result for JSON
+        detailedResults.push({
+            questionId: question.id,
+            questionText: question.text,
+            userAnswer: userAnswer || null,
+            correctAnswer: question.correctAnswer,
+            isCorrect: isCorrect,
+            explanation: question.explanation || null
+        });
+    });
+    
+    // Prepare JSON output with LaTeX support
+    const resultsJSON = {
+        examId: examData.examId,
+        studentId: examData.studentId,
+        studentName: examData.studentName,
+        startTime: examData.startTime.toISOString(),
+        endTime: new Date().toISOString(),
+        timeUsed: timeUsed,
+        totalQuestions: examData.questions.length,
+        correctAnswers: correct,
+        incorrectAnswers: incorrect,
+        blankAnswers: blank,
+        score: correct,
+        flaggedQuestions: Array.from(examData.flaggedQuestions),
+        userAnswers: examData.userAnswers,
+        detailedResults: detailedResults,
+        questions: examData.questions.map(q => ({
+            id: q.id,
+            text: q.text,
+            latex: q.latex || false,
+            options: q.options,
+            correctAnswer: q.correctAnswer
+        })),
+        correctAnswersKey: examData.questions.reduce((acc, q) => {
+            acc[q.id] = q.correctAnswer;
+            return acc;
+        }, {})
+    };
+    
+    // Update modal with results
+    elements.finalScore.textContent = `${correct}/${examData.questions.length}`;
+    elements.correctCount.textContent = correct;
+    elements.incorrectCount.textContent = incorrect;
+    elements.blankCount.textContent = blank;
+    elements.timeUsed.textContent = `${minutesUsed}:${secondsUsed.toString().padStart(2, '0')}`;
+    elements.jsonOutput.textContent = JSON.stringify(resultsJSON, null, 2);
+    
+    // Show modal
+    elements.resultsModal.classList.add('active');
+    
+    // Force MathJax to render any LaTeX in results
+    if (window.MathJax) {
+        setTimeout(() => {
+            MathJax.typesetPromise([elements.resultsModal]).catch(err => {
+                console.log('MathJax typeset error for modal:', err);
+            });
+        }, 200);
+    }
+}
+
+// setup LaTeX
+function processLaTeX(text, isLatex = false) {
+    if (!isLatex) return text;
+    
+    // Remove qualquer tag MathJax existente para reprocessar
+    return text.replace(/\\\$/g, '&#36;'); // Protege contra conflitos
+}
+
+// Função para carregar de um arquivo JSON externo
+async function loadExamFromJSONFile() {
+    try {
+        const response = await fetch('questions.json');
+        if (!response.ok) throw new Error('Erro ao carregar arquivo JSON');
+        
+        const data = await response.json();
+        
+        // Validar estrutura do JSON
+        if (!data.questions || !Array.isArray(data.questions)) {
+            throw new Error('Formato inválido do JSON: questions é obrigatório');
+        }
+        
+        examData.examId = data.examId || "SIGMA-2024-LATEX";
+        examData.timeLimit = data.timeLimit || 1800;
+        examData.questions = data.questions;
+        examData.startTime = new Date();
+        
+        // Inicializar a prova
+        initExam();
+        
+    } catch (error) {
+        console.error('Erro ao carregar JSON externo:', error);
+        
+        // Fallback para dados inline
+        elements.questionContent.innerHTML = `
+            <div style="text-align: center; padding: 1rem; color: var(--warning);">
+                <i class="fas fa-exclamation-triangle"></i>
+                <p>Usando questões de demonstração. ${error.message}</p>
+            </div>
+        `;
+        
+        loadExamData(); // Carrega dados inline como fallback
+    }
+}
 
         // Setup event listeners
         function setupEventListeners() {
@@ -1266,7 +1305,10 @@
         }
 
         // Initialize the page
-        window.addEventListener('DOMContentLoaded', loadExamData);
+    window.addEventListener('DOMContentLoaded', function() {
+    // Tenta carregar do arquivo JSON externo primeiro
+    loadExamFromJSONFile();
+});
     </script>
 </body>
 </html>

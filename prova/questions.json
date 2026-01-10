@@ -1,0 +1,64 @@
+{
+    "examId": "SIGMA-2024-LATEX",
+    "timeLimit": 1800,
+    "questions": [
+        {
+            "id": 1,
+            "text": "Resolva a equação: $x^2 - 5x + 6 = 0$",
+            "latex": true,
+            "options": [
+                {
+                    "text": "$x = 2$ ou $x = 3$",
+                    "latex": true
+                },
+                {
+                    "text": "$x = 1$ ou $x = 6$",
+                    "latex": true
+                },
+                {
+                    "text": "$x = -2$ ou $x = -3$",
+                    "latex": true
+                },
+                {
+                    "text": "$x = \\frac{5 \\pm \\sqrt{13}}{2}$",
+                    "latex": true
+                },
+                {
+                    "text": "Sem solução real",
+                    "latex": false
+                }
+            ],
+            "correctAnswer": "A",
+            "explanation": "Fatorando: $(x-2)(x-3) = 0$, logo $x=2$ ou $x=3$"
+        },
+        {
+            "id": 2,
+            "text": "Calcule a integral: $\\int x^2 \\, dx$",
+            "latex": true,
+            "options": [
+                {
+                    "text": "$\\frac{x^3}{3} + C$",
+                    "latex": true
+                },
+                {
+                    "text": "$x^3 + C$",
+                    "latex": true
+                },
+                {
+                    "text": "$2x + C$",
+                    "latex": true
+                },
+                {
+                    "text": "$\\frac{x^3}{2} + C$",
+                    "latex": true
+                },
+                {
+                    "text": "$\\frac{x^2}{2} + C$",
+                    "latex": true
+                }
+            ],
+            "correctAnswer": "A",
+            "explanation": "Usando a regra da potência: $\\int x^n \\, dx = \\frac{x^{n+1}}{n+1} + C$"
+        }
+    ]
+}
