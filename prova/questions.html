@@ -1,78 +1,1272 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Prova Objetiva — Olímpiada Sigma</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prova - Olímpiada Sigma</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+        }
 
-  <!-- placeholder para estrutura de layout e cores iniciais -->
-  <style href="style.css"></style>
+        :root {
+            --primary: #2d3b8b;
+            --primary-light: #5c6bc0;
+            --primary-dark: #1a237e;
+            --accent: #ff6b35;
+            --accent-light: #ff8e5c;
+            --light: #f8f9ff;
+            --dark: #1e1e2e;
+            --gray: #e2e5f1;
+            --success: #4CAF50;
+            --warning: #ff9800;
+            --danger: #f44336;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f8f9ff 0%, #eef1ff 100%);
+            color: var(--dark);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            width: 100%;
+        }
+
+        /* Header Styling */
+        .header {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+            color: white;
+            padding: 1.5rem 0;
+            box-shadow: 0 4px 20px rgba(26, 35, 126, 0.15);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .sigma-icon {
+            font-size: 2.2rem;
+            color: var(--accent);
+            font-weight: 900;
+            background: rgba(255, 255, 255, 0.1);
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo-text h1 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .logo-text p {
+            font-size: 0.85rem;
+            opacity: 0.9;
+            color: #e0e0ff;
+        }
+
+        .student-info {
+            text-align: right;
+        }
+
+        .student-name {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .student-id {
+            font-size: 0.85rem;
+            opacity: 0.9;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 4px 12px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        /* Timer Section */
+        .timer-section {
+            background: white;
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin: 2rem auto;
+            max-width: 1000px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            border: 1px solid var(--gray);
+        }
+
+        .timer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .timer-box {
+            text-align: center;
+            padding: 1.2rem;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            box-shadow: 0 6px 20px rgba(45, 59, 139, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .timer-box:hover {
+            transform: translateY(-3px);
+        }
+
+        .timer-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .timer-value {
+            font-size: 2.2rem;
+            font-weight: 700;
+            font-family: 'JetBrains Mono', monospace;
+            letter-spacing: 1px;
+        }
+
+        .progress-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: var(--gray);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 8px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent) 0%, var(--accent-light) 100%);
+            width: 0%;
+            transition: width 0.5s ease;
+            border-radius: 4px;
+        }
+
+        .progress-stats {
+            display: flex;
+            justify-content: space-between;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        /* Questions Area */
+        .questions-area {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            border: 1px solid var(--gray);
+            min-height: 500px;
+        }
+
+        .question-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--gray);
+        }
+
+        .question-counter {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .counter-number {
+            background: var(--primary);
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        .question-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .action-btn {
+            background: var(--light);
+            border: 1px solid var(--gray);
+            color: var(--primary);
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .action-btn:hover {
+            background: var(--primary);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .question-content {
+            margin-bottom: 2rem;
+        }
+
+        .question-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            line-height: 1.4;
+            padding-left: 10px;
+            border-left: 4px solid var(--accent);
+        }
+
+        .question-text {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+            color: #444;
+        }
+
+        .question-image {
+            max-width: 100%;
+            border-radius: 12px;
+            margin: 1rem 0;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Options Styling */
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+            margin-top: 1.5rem;
+        }
+
+        .option-card {
+            background: var(--light);
+            border: 2px solid var(--gray);
+            border-radius: 12px;
+            padding: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .option-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--primary-light);
+            box-shadow: 0 6px 20px rgba(45, 59, 139, 0.1);
+        }
+
+        .option-card.selected {
+            background: linear-gradient(135deg, rgba(45, 59, 139, 0.05) 0%, rgba(92, 107, 192, 0.05) 100%);
+            border-color: var(--primary);
+            box-shadow: 0 4px 15px rgba(45, 59, 139, 0.15);
+        }
+
+        .option-letter {
+            background: var(--primary);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+
+        .option-card.selected .option-letter {
+            background: var(--accent);
+            transform: scale(1.1);
+        }
+
+        .option-text {
+            flex: 1;
+            font-size: 1.05rem;
+            line-height: 1.5;
+        }
+
+        .option-check {
+            opacity: 0;
+            color: var(--success);
+            font-size: 1.2rem;
+            transition: opacity 0.3s ease;
+        }
+
+        .option-card.selected .option-check {
+            opacity: 1;
+        }
+
+        /* Controls */
+        .controls-section {
+            margin: 2rem 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn {
+            padding: 0.9rem 1.8rem;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-width: 140px;
+            justify-content: center;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            box-shadow: 0 6px 20px rgba(45, 59, 139, 0.2);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(45, 59, 139, 0.3);
+        }
+
+        .btn-accent {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+            color: white;
+            box-shadow: 0 6px 20px rgba(255, 107, 53, 0.2);
+        }
+
+        .btn-accent:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 107, 53, 0.3);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--primary);
+            border: 2px solid var(--gray);
+        }
+
+        .btn-secondary:hover {
+            background: var(--light);
+            border-color: var(--primary);
+        }
+
+        /* Results Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(30, 30, 46, 0.9);
+            backdrop-filter: blur(8px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .results-modal {
+            background: white;
+            border-radius: 24px;
+            padding: 2.5rem;
+            max-width: 700px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .modal-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .modal-header h2 {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-subtitle {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .score-display {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 16px;
+            text-align: center;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(45, 59, 139, 0.3);
+        }
+
+        .score-value {
+            font-size: 4rem;
+            font-weight: 800;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .score-label {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .result-card {
+            background: var(--light);
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid var(--gray);
+        }
+
+        .result-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .result-label {
+            color: #666;
+            font-weight: 500;
+        }
+
+        .json-output {
+            background: #1e1e2e;
+            color: #f8f8f2;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-top: 1.5rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--primary-dark);
+            color: white;
+            padding: 2rem 0;
+            margin-top: auto;
+        }
+
+        .footer-content {
+            text-align: center;
+        }
+
+        .footer-text {
+            opacity: 0.8;
+            font-size: 0.9rem;
+            margin-top: 1rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+            }
+
+            .student-info {
+                text-align: center;
+            }
+
+            .timer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .controls-section {
+                flex-direction: column;
+            }
+
+            .nav-buttons {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .btn {
+                min-width: 120px;
+                padding: 0.8rem 1.5rem;
+            }
+
+            .results-modal {
+                padding: 1.5rem;
+            }
+
+            .score-value {
+                font-size: 3rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .questions-area {
+                padding: 1.5rem;
+            }
+
+            .option-card {
+                padding: 1rem;
+            }
+
+            .option-letter {
+                width: 35px;
+                height: 35px;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="container" id="app" role="application" aria-labelledby="app-title">
-
-    <header>
-      <div>
-        <h1 id="app-title"><span style="color:#ff9800;font-weight:800">Σ</span> Olímpiada Sigma</h1>
-      </div>
-      <div class="controls-row" aria-hidden="false">
-        <button id="export-results" class="small">Exportar resultados</button>
-      </div>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="sigma-icon">Σ</div>
+                    <div class="logo-text">
+                        <h1>Olímpiada Sigma de Matemática</h1>
+                    </div>
+                </div>
+                <div class="student-info">
+                    <div class="student-name">NOME DO ESTUDANTE</div>
+                    <div class="student-id">EMAIL DO ESTUDANTE</div>
+                </div>
+            </div>
+        </div>
     </header>
 
-    <div id="restore-banner" class="banner" style="display:none" role="status" aria-live="polite"></div>
-
-    <section class="muted" style="margin:10px 0">
-      <strong>Atalhos:</strong> ← → navega · 1–5 escolhe alternativa · <kbd>M</kbd> marcar · <kbd>C</kbd> limpar · <kbd>S</kbd> enviar · <kbd>?</kbd> ajuda
+    <!-- Timer Section -->
+    <section class="container">
+        <div class="timer-section">
+            <div class="timer-grid">
+                <div class="timer-box">
+                    <div class="timer-label">
+                        <i class="fas fa-clock"></i>
+                        TEMPO RESTANTE
+                    </div>
+                    <div class="timer-value" id="timer">30:00</div>
+                </div>
+                <div class="progress-info">
+                    <div class="progress-stats">
+                        <span id="answered-count">0</span> de <span id="total-questions">0</span> questões respondidas
+                        <span id="progress-percent">0%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progress-fill"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 
-    <div class="layout" aria-live="polite">
-      <nav class="tabs" id="tabs" aria-label="Lista de questões">
-        <div style="font-weight:800;margin-bottom:8px">Questões</div>
-        <div id="tabs-list" role="tablist" aria-orientation="vertical"></div>
-        <div style="margin-top:2px">
-          <div class="muted">Progresso</div>
-          <div style="height:10px;background:#eee;border-radius:999px;margin-top:6px;overflow:hidden">
-            <div id="progress" style="height:100%;width:0%;background:linear-gradient(90deg,#1a237e,#ff9800)"></div>
-          </div>
+    <!-- Questions Area -->
+    <main class="container">
+        <div class="questions-area">
+            <div class="question-nav">
+                <div class="question-counter">
+                    <div class="counter-number" id="current-question">1</div>
+                    <span>QUESTÃO <span id="current-index">1</span> DE <span id="total-count">0</span></span>
+                </div>
+                <div class="question-actions">
+                    <button class="action-btn" id="prev-btn" title="Questão anterior">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="action-btn" id="next-btn" title="Próxima questão">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                    <button class="action-btn" id="flag-btn" title="Marcar questão">
+                        <i class="far fa-flag"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="question-content" id="question-content">
+                <!-- Question content will be loaded here -->
+                <div class="loading">Carregando questão...</div>
+            </div>
+
+            <div class="options-grid" id="options-container">
+                <!-- Options will be loaded here -->
+            </div>
         </div>
-      </nav>
 
-      <main class="area" id="main-area">
-        <section id="question-panel" aria-live="polite">
-          <div id="question-wrapper" class="question-wrapper">
-            <p class="muted">Carregando prova...</p>
-          </div>
+        <!-- Controls -->
+        <div class="controls-section">
+            <div class="nav-buttons">
+                <button class="btn btn-secondary" id="back-btn">
+                    <i class="fas fa-arrow-left"></i> Anterior
+                </button>
+                <button class="btn btn-primary" id="forward-btn">
+                    Próxima <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+            <button class="btn btn-accent" id="submit-exam-btn">
+                <i class="fas fa-paper-plane"></i> Enviar Prova
+            </button>
+        </div>
+    </main>
 
-          <div style="display:flex;gap:8px;margin-top:12px;align-items:center">
-            <button id="prev" class="small">← Anterior</button>
-            <button id="next" class="small">Próxima →</button>
-            <button id="mark" class="small">Marcar revisão (M)</button>
-            <button id="clear" class="small">Limpar (C)</button>
-            <div style="margin-left:auto" class="muted">Tempo restante: <strong id="timer">--:--</strong></div>
-            <button id="submit" class="primary" style="margin-left:8px">Enviar prova (S)</button>
-          </div>
+    <!-- Results Modal -->
+    <div class="modal-overlay" id="results-modal">
+        <div class="results-modal">
+            <div class="modal-header">
+                <h2>Prova Concluída!</h2>
+                <p class="modal-subtitle">Confira seu desempenho</p>
+            </div>
 
-          <div id="results" hidden></div>
-        </section>
-      </main>
+            <div class="score-display">
+                <div class="score-value" id="final-score">0/0</div>
+                <div class="score-label">Pontuação Final</div>
+            </div>
+
+            <div class="results-grid">
+                <div class="result-card">
+                    <div class="result-value" id="correct-count">0</div>
+                    <div class="result-label">Corretas</div>
+                </div>
+                <div class="result-card">
+                    <div class="result-value" id="incorrect-count">0</div>
+                    <div class="result-label">Incorretas</div>
+                </div>
+                <div class="result-card">
+                    <div class="result-value" id="blank-count">0</div>
+                    <div class="result-label">Em Branco</div>
+                </div>
+                <div class="result-card">
+                    <div class="result-value" id="time-used">0:00</div>
+                    <div class="result-label">Tempo Utilizado</div>
+                </div>
+            </div>
+
+            <div class="json-output" id="json-output">
+                {/* JSON output will appear here */}
+            </div>
+
+            <div class="modal-actions">
+                <button class="btn btn-primary" id="review-btn">
+                    <i class="fas fa-redo"></i> Revisar Respostas
+                </button>
+                <button class="btn btn-secondary" id="close-modal-btn">
+                    <i class="fas fa-times"></i> Fechar
+                </button>
+            </div>
+        </div>
     </div>
 
-    <div id="help-modal" style="display:none;padding:12px;background:#fff;border:1px solid #eee;border-radius:8px;margin-top:10px">
-      <strong>Ajuda / Atalhos</strong>
-      <ul>
-        <li>← / → : navegar entre perguntas</li>
-        <li>1–5 : marcar alternativa</li>
-        <li>M : marcar para revisão</li>
-        <li>C : limpar resposta</li>
-        <li>S : enviar prova</li>
-        <li>? : abrir/fechar esta ajuda</li>
-      </ul>
-    </div>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="sigma-icon" style="margin: 0 auto 1rem;">Σ</div>
+                <h3>Olímpiada Sigma de Matemática</h3>
+                <p class="footer-text">Site de teste #01 | 2026</p>
+            </div>
+        </div>
+    </footer>
 
-  </div>
+    <script>
+        // Exam data structure
+        const examData = {
+            examId: "SIGMA-2024-BETA",
+            timeLimit: 1800, // 30 minutes in seconds
+            studentId: "MAT-2024-00123",
+            studentName: "João Silva",
+            questions: [],
+            userAnswers: {},
+            flaggedQuestions: new Set(),
+            startTime: null,
+            currentQuestionIndex: 0,
+            examFinished: false
+        };
 
-  <script type="module" src="script.js"></script>
+        // DOM Elements
+        const elements = {
+            timer: document.getElementById('timer'),
+            answeredCount: document.getElementById('answered-count'),
+            totalQuestions: document.getElementById('total-questions'),
+            progressFill: document.getElementById('progress-fill'),
+            progressPercent: document.getElementById('progress-percent'),
+            currentQuestion: document.getElementById('current-question'),
+            currentIndex: document.getElementById('current-index'),
+            totalCount: document.getElementById('total-count'),
+            questionContent: document.getElementById('question-content'),
+            optionsContainer: document.getElementById('options-container'),
+            prevBtn: document.getElementById('prev-btn'),
+            nextBtn: document.getElementById('next-btn'),
+            flagBtn: document.getElementById('flag-btn'),
+            backBtn: document.getElementById('back-btn'),
+            forwardBtn: document.getElementById('forward-btn'),
+            submitExamBtn: document.getElementById('submit-exam-btn'),
+            resultsModal: document.getElementById('results-modal'),
+            finalScore: document.getElementById('final-score'),
+            correctCount: document.getElementById('correct-count'),
+            incorrectCount: document.getElementById('incorrect-count'),
+            blankCount: document.getElementById('blank-count'),
+            timeUsed: document.getElementById('time-used'),
+            jsonOutput: document.getElementById('json-output'),
+            reviewBtn: document.getElementById('review-btn'),
+            closeModalBtn: document.getElementById('close-modal-btn')
+        };
+
+        // Timer variables
+        let timeLeft = examData.timeLimit;
+        let timerInterval = null;
+
+        // Load exam data from JSON
+        async function loadExamData() {
+            try {
+                // In a real scenario, this would fetch from a JSON file
+                // For demo purposes, we'll create the data inline
+                const mockQuestions = [
+                    {
+                        id: 1,
+                        text: "Em um triângulo retângulo, a soma dos quadrados dos catetos é igual a 169. Se um cateto mede 5 cm, qual é o comprimento da hipotenusa?",
+                        image: null,
+                        options: [
+                            "12 cm",
+                            "13 cm", 
+                            "14 cm",
+                            "15 cm",
+                            "17 cm"
+                        ],
+                        correctAnswer: "B"
+                    },
+                    {
+                        id: 2,
+                        text: "Qual é o valor de x na equação 2^(x+1) = 32?",
+                        image: null,
+                        options: [
+                            "2",
+                            "3",
+                            "4",
+                            "5",
+                            "6"
+                        ],
+                        correctAnswer: "C"
+                    },
+                    {
+                        id: 3,
+                        text: "Em uma progressão geométrica, o primeiro termo é 3 e a razão é 2. Qual é a soma dos 5 primeiros termos?",
+                        image: null,
+                        options: [
+                            "45",
+                            "63",
+                            "93",
+                            "99",
+                            "127"
+                        ],
+                        correctAnswer: "C"
+                    },
+                    {
+                        id: 4,
+                        text: "Se log₁₀2 ≈ 0.3010 e log₁₀3 ≈ 0.4771, qual é o valor aproximado de log₁₀6?",
+                        image: null,
+                        options: [
+                            "0.1761",
+                            "0.3010",
+                            "0.4771",
+                            "0.6020",
+                            "0.7781"
+                        ],
+                        correctAnswer: "E"
+                    },
+                    {
+                        id: 5,
+                        text: "Quantos anagramas da palavra 'MATEMATICA' começam com a letra M?",
+                        image: null,
+                        options: [
+                            "15120",
+                            "30240",
+                            "45360",
+                            "60480",
+                            "75600"
+                        ],
+                        correctAnswer: "C"
+                    },
+                    {
+                        id: 6,
+                        text: "Se f(x) = 3x² - 2x + 1, qual é o valor de f(2)?",
+                        image: null,
+                        options: [
+                            "7",
+                            "9",
+                            "11",
+                            "13",
+                            "15"
+                        ],
+                        correctAnswer: "B"
+                    },
+                    {
+                        id: 7,
+                        text: "Qual é a área de um círculo inscrito em um quadrado de lado 10 cm?",
+                        image: null,
+                        options: [
+                            "25π cm²",
+                            "50π cm²",
+                            "75π cm²",
+                            "100π cm²",
+                            "125π cm²"
+                        ],
+                        correctAnswer: "A"
+                    },
+                    {
+                        id: 8,
+                        text: "Resolva a equação: |2x - 3| = 7",
+                        image: null,
+                        options: [
+                            "x = 2 ou x = -5",
+                            "x = 5 ou x = -2",
+                            "x = 2 ou x = 5",
+                            "x = -2 ou x = -5",
+                            "x = 3 ou x = -3"
+                        ],
+                        correctAnswer: "B"
+                    },
+                    {
+                        id: 9,
+                        text: "Qual é o resto da divisão de 7^100 por 5?",
+                        image: null,
+                        options: [
+                            "0",
+                            "1",
+                            "2",
+                            "3",
+                            "4"
+                        ],
+                        correctAnswer: "B"
+                    },
+                    {
+                        id: 10,
+                        text: "Em um triângulo equilátero de lado L, qual é a distância do centro ao vértice?",
+                        image: null,
+                        options: [
+                            "L/√3",
+                            "L√3/3",
+                            "L√3/2",
+                            "L/2",
+                            "L√2/2"
+                        ],
+                        correctAnswer: "B"
+                    }
+                ];
+
+                examData.questions = mockQuestions;
+                examData.startTime = new Date();
+                
+                // Initialize the exam
+                initExam();
+                
+            } catch (error) {
+                console.error('Erro ao carregar dados da prova:', error);
+                elements.questionContent.innerHTML = `
+                    <div style="text-align: center; padding: 2rem; color: var(--danger);">
+                        <i class="fas fa-exclamation-triangle" style="font-size: 3rem; margin-bottom: 1rem;"></i>
+                        <h3>Erro ao carregar a prova</h3>
+                        <p>Recarregue a página ou tente novamente mais tarde.</p>
+                    </div>
+                `;
+            }
+        }
+
+        // Initialize exam
+        function initExam() {
+            // Update UI with exam data
+            elements.totalQuestions.textContent = examData.questions.length;
+            elements.totalCount.textContent = examData.questions.length;
+            
+            // Initialize timer
+            startTimer();
+            
+            // Load first question
+            loadQuestion(0);
+            
+            // Update progress
+            updateProgress();
+            
+            // Setup event listeners
+            setupEventListeners();
+        }
+
+        // Start the timer
+        function startTimer() {
+            updateTimerDisplay();
+            
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                updateTimerDisplay();
+                
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    finishExam();
+                }
+            }, 1000);
+        }
+
+        // Update timer display
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            elements.timer.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            
+            // Add warning styles when time is running out
+            if (timeLeft <= 300) { // 5 minutes
+                elements.timer.style.color = 'var(--warning)';
+                elements.timer.style.animation = timeLeft <= 60 ? 'pulse 1s infinite' : 'none';
+            }
+        }
+
+        // Load a specific question
+        function loadQuestion(index) {
+            examData.currentQuestionIndex = index;
+            const question = examData.questions[index];
+            
+            // Update UI
+            elements.currentQuestion.textContent = index + 1;
+            elements.currentIndex.textContent = index + 1;
+            
+            // Update navigation buttons state
+            elements.prevBtn.disabled = index === 0;
+            elements.backBtn.disabled = index === 0;
+            elements.nextBtn.disabled = index === examData.questions.length - 1;
+            elements.forwardBtn.disabled = index === examData.questions.length - 1;
+            
+            // Update flag button
+            updateFlagButton();
+            
+            // Load question content
+            elements.questionContent.innerHTML = `
+                <div class="question-title">Questão ${question.id}</div>
+                <div class="question-text">${question.text}</div>
+                ${question.image ? `<img src="${question.image}" alt="Questão ${question.id}" class="question-image">` : ''}
+            `;
+            
+            // Load options
+            loadOptions(question);
+        }
+
+        // Load options for a question
+        function loadOptions(question) {
+            elements.optionsContainer.innerHTML = '';
+            
+            const letters = ['A', 'B', 'C', 'D', 'E'];
+            const userAnswer = examData.userAnswers[question.id];
+            
+            question.options.forEach((option, index) => {
+                const letter = letters[index];
+                const optionCard = document.createElement('div');
+                optionCard.className = 'option-card';
+                if (userAnswer === letter) {
+                    optionCard.classList.add('selected');
+                }
+                optionCard.dataset.option = letter;
+                
+                optionCard.innerHTML = `
+                    <div class="option-letter">${letter}</div>
+                    <div class="option-text">${option}</div>
+                    <div class="option-check"><i class="fas fa-check"></i></div>
+                `;
+                
+                optionCard.addEventListener('click', () => selectOption(question.id, letter));
+                elements.optionsContainer.appendChild(optionCard);
+            });
+        }
+
+        // Select an option
+        function selectOption(questionId, optionLetter) {
+            examData.userAnswers[questionId] = optionLetter;
+            
+            // Update UI
+            const optionCards = elements.optionsContainer.querySelectorAll('.option-card');
+            optionCards.forEach(card => {
+                card.classList.remove('selected');
+                if (card.dataset.option === optionLetter) {
+                    card.classList.add('selected');
+                }
+            });
+            
+            updateProgress();
+        }
+
+        // Update flag button state
+        function updateFlagButton() {
+            const questionId = examData.questions[examData.currentQuestionIndex].id;
+            const isFlagged = examData.flaggedQuestions.has(questionId);
+            
+            elements.flagBtn.innerHTML = isFlagged ? 
+                '<i class="fas fa-flag"></i>' : 
+                '<i class="far fa-flag"></i>';
+            elements.flagBtn.style.color = isFlagged ? 'var(--warning)' : 'inherit';
+        }
+
+        // Toggle flag for current question
+        function toggleFlag() {
+            const questionId = examData.questions[examData.currentQuestionIndex].id;
+            
+            if (examData.flaggedQuestions.has(questionId)) {
+                examData.flaggedQuestions.delete(questionId);
+            } else {
+                examData.flaggedQuestions.add(questionId);
+            }
+            
+            updateFlagButton();
+        }
+
+        // Update progress indicators
+        function updateProgress() {
+            const answered = Object.keys(examData.userAnswers).length;
+            const total = examData.questions.length;
+            const percent = Math.round((answered / total) * 100);
+            
+            elements.answeredCount.textContent = answered;
+            elements.progressPercent.textContent = `${percent}%`;
+            elements.progressFill.style.width = `${percent}%`;
+        }
+
+        // Navigate to next question
+        function nextQuestion() {
+            if (examData.currentQuestionIndex < examData.questions.length - 1) {
+                loadQuestion(examData.currentQuestionIndex + 1);
+            }
+        }
+
+        // Navigate to previous question
+        function prevQuestion() {
+            if (examData.currentQuestionIndex > 0) {
+                loadQuestion(examData.currentQuestionIndex - 1);
+            }
+        }
+
+        // Finish exam and show results
+        function finishExam() {
+            clearInterval(timerInterval);
+            examData.examFinished = true;
+            
+            // Calculate time used
+            const timeUsed = examData.timeLimit - timeLeft;
+            const minutesUsed = Math.floor(timeUsed / 60);
+            const secondsUsed = timeUsed % 60;
+            
+            // Calculate results
+            let correct = 0;
+            let incorrect = 0;
+            let blank = 0;
+            
+            examData.questions.forEach(question => {
+                const userAnswer = examData.userAnswers[question.id];
+                
+                if (!userAnswer) {
+                    blank++;
+                } else if (userAnswer === question.correctAnswer) {
+                    correct++;
+                } else {
+                    incorrect++;
+                }
+            });
+            
+            // Prepare JSON output
+            const resultsJSON = {
+                examId: examData.examId,
+                studentId: examData.studentId,
+                studentName: examData.studentName,
+                startTime: examData.startTime.toISOString(),
+                endTime: new Date().toISOString(),
+                timeUsed: timeUsed,
+                totalQuestions: examData.questions.length,
+                correctAnswers: correct,
+                incorrectAnswers: incorrect,
+                blankAnswers: blank,
+                score: correct,
+                flaggedQuestions: Array.from(examData.flaggedQuestions),
+                userAnswers: examData.userAnswers,
+                correctAnswersKey: examData.questions.reduce((acc, q) => {
+                    acc[q.id] = q.correctAnswer;
+                    return acc;
+                }, {})
+            };
+            
+            // Update modal with results
+            elements.finalScore.textContent = `${correct}/${examData.questions.length}`;
+            elements.correctCount.textContent = correct;
+            elements.incorrectCount.textContent = incorrect;
+            elements.blankCount.textContent = blank;
+            elements.timeUsed.textContent = `${minutesUsed}:${secondsUsed.toString().padStart(2, '0')}`;
+            elements.jsonOutput.textContent = JSON.stringify(resultsJSON, null, 2);
+            
+            // Show modal
+            elements.resultsModal.classList.add('active');
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
+            // Navigation buttons
+            elements.prevBtn.addEventListener('click', prevQuestion);
+            elements.nextBtn.addEventListener('click', nextQuestion);
+            elements.backBtn.addEventListener('click', prevQuestion);
+            elements.forwardBtn.addEventListener('click', nextQuestion);
+            
+            // Flag button
+            elements.flagBtn.addEventListener('click', toggleFlag);
+            
+            // Submit exam button
+            elements.submitExamBtn.addEventListener('click', () => {
+                if (confirm('Tem certeza que deseja enviar sua prova? Esta ação não pode ser desfeita.')) {
+                    finishExam();
+                }
+            });
+            
+            // Modal buttons
+            elements.reviewBtn.addEventListener('click', () => {
+                elements.resultsModal.classList.remove('active');
+                // Go back to first question for review
+                loadQuestion(0);
+            });
+            
+            elements.closeModalBtn.addEventListener('click', () => {
+                elements.resultsModal.classList.remove('active');
+            });
+            
+            // Keyboard shortcuts
+            document.addEventListener('keydown', (e) => {
+                if (examData.examFinished) return;
+                
+                switch(e.key) {
+                    case 'ArrowLeft':
+                        prevQuestion();
+                        break;
+                    case 'ArrowRight':
+                        nextQuestion();
+                        break;
+                    case '1':
+                    case '2':
+                    case '3':
+                    case '4':
+                    case '5':
+                        const optionIndex = parseInt(e.key) - 1;
+                        const currentQuestion = examData.questions[examData.currentQuestionIndex];
+                        if (optionIndex < currentQuestion.options.length) {
+                            const letter = ['A', 'B', 'C', 'D', 'E'][optionIndex];
+                            selectOption(currentQuestion.id, letter);
+                        }
+                        break;
+                    case 'f':
+                    case 'F':
+                        toggleFlag();
+                        break;
+                    case 'Enter':
+                        if (e.ctrlKey) {
+                            finishExam();
+                        }
+                        break;
+                }
+            });
+        }
+
+        // Initialize the page
+        window.addEventListener('DOMContentLoaded', loadExamData);
+    </script>
 </body>
 </html>
