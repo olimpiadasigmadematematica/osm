@@ -9,7 +9,7 @@
 <body>
     <div class="container" style="max-width:400px; margin-top:100px;">
         <header style="text-align:center; margin-bottom:20px;">
-            <h1 style="color:var(--primary);">Portal <i class="sigma">Σ</i></h1>
+            <h1 style="color:var(--primary);">Portal $\sum$</h1>
             <div class="muted">Faça login para continuar</div>
         </header>
 
@@ -25,6 +25,32 @@
             <div id="login-error" style="color:var(--danger); margin-top:12px; display:none;"></div>
         </div>
     </div>
+
+    <!-- MATH JAX -->
+    <script>
+      window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true,
+                processEnvironments: true,
+                packages: ['base', 'ams', 'noerrors', 'noundefined']
+            },
+            options: {
+                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+                ignoreHtmlClass: 'tex-ignore',
+                enableMenu: false
+            },
+            startup: {
+                pageReady: () => {
+                    return MathJax.startup.defaultPageReady().then(() => {
+                        console.log('MathJax carregado com sucesso');
+                    });
+                }
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
 
     <script>
       

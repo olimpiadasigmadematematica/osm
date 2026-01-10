@@ -67,9 +67,9 @@
         }
 
         .sigma-icon {
-            font-size: 2.2rem;
+            font-size: 1rem;
             color: var(--accent);
-            font-weight: 900;
+            font-weight: 300;
             background: rgba(255, 255, 255, 0.1);
             width: 50px;
             height: 50px;
@@ -665,12 +665,12 @@
         <div class="container">
             <div class="header-content">
                 <div class="logo">
-                    <div class="sigma-icon">Σ</div>
+                    <div class="sigma-icon">$$\sum$$</div>
                     <div class="logo-text">
-                                      <div class="student-info">
-                    <div class="student-name">NOME DO ESTUDANTE</div>
-                    <div class="student-id">EMAIL DO ESTUDANTE</div>
-                </div>
+                        <div class="student-info">
+                            <div class="student-name">NOME DO ESTUDANTE</div>
+                            <div class="student-id">EMAIL DO ESTUDANTE</div>
+                        </div>
                     </div>
                 </div>
 
@@ -800,7 +800,7 @@
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
-                <div class="sigma-icon" style="margin: 0 auto 1rem;">Σ</div>
+                <div class="sigma-icon" style="margin: 0 auto 1rem;">$$\sum$$</div>
                 <h3>Olímpiada Sigma de Matemática</h3>
                 <p class="footer-text">Site de teste #01 | 2026</p>
             </div>
@@ -819,7 +819,8 @@
             },
             options: {
                 skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-                ignoreHtmlClass: 'tex-ignore'
+                ignoreHtmlClass: 'tex-ignore',
+                enableMenu: false
             },
             startup: {
                 pageReady: () => {
@@ -830,7 +831,7 @@
             }
         };
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
 
     <script>
         // Exam data structure
